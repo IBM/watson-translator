@@ -8,10 +8,15 @@
 
 * [Pre-work](pre-work/README.md)
 
-### Some Heading
+### Watson Translator Dojo
 
-* [Some Section](some-section/README.md)
-    * [Some Exercise](some-exercise/README.md)
+* [Watson Translator 101](generatedContent/watson-translator-101/README.md)
+    * [Lab 1 - Create Language Translator service instance](generatedContent/watson-translator-101/create-translator-instance.md)
+    * [Lab 2 - Translation API Test Drive](generatedContent/watson-translator-101/translation.md)
+    * [Lab 3 - Translate Document](generatedContent/watson-translator-101/translation-document.md)
+    * [Lab 4 - Build Force Glossary Custom Model](generatedContent/watson-translator-101/force-glossary-model.md)
+    * [Lab 5 - Build Parallel Corpus Custom Model](generatedContent/watson-translator-101/parallel-corpus-model.md)
+    * [Lab 6 - Calling Translator APIs in Sample Application](https://github.com/IBM/watson-speech-translator#use-the-web-app)
 
 ### Workshop Resources
 
