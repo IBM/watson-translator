@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/pre-work/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/watson-translator-101/create-translator-instance/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/watson-translator-101/translation/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/watson-translator-101/translation-document/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/watson-translator-101/force-glossary-model/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ibm.github.io/watson-translator-workshop/watson-translator-101/parallel-corpus-model/</loc>
+     <lastmod>2020-12-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+</urlset>
