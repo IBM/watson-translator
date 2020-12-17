@@ -1,6 +1,5 @@
 # Build Parallel Corpus Custom Model
 
-
 ## Overview
 
 Most of the provided translation models in `Language Translator` can be extended to learn custom terms and phrases or a general style that's derived from your translation data.
@@ -10,9 +9,10 @@ The `Language Translator` service supports two types of customization requests. 
 - Use a `forced glossary` to force certain terms and phrases to be translated in a specific way.
 - Use a `parallel corpus` when you want your custom model to learn from general translation patterns in your samples. What your model learns from a parallel corpus can improve translation results for input text that the model hasn't been trained on.
 
-The general improvements from parallel corpus customization are less predictable than the mandatory results you get from forced glossary customization. 
+The general improvements from parallel corpus customization are less predictable than the mandatory results you get from forced glossary customization.
 
 Use a parallel corpus to provide additional translations for the base model to learn from. This helps to adapt the base model to a specific domain. How the resulting custom model translates text depends on the model's combined understanding of the parallel corpus and the base model.
+
 - Training data format: TMX (UTF-8 encoded)
 - Maximum length of translation pairs: 80 source words
 - Minimum number of translation pairs: 5,000
@@ -21,23 +21,19 @@ Use a parallel corpus to provide additional translations for the base model to l
 
 > Note, Make sure that your Language Translator service instance is on an Advanced or Premium pricing plan. The Lite and Standard plans do not support customization.
 
-
 ## Objective
 
 IBM Watson™ Language Translator allows you to translate text programmatically from one language into another language.
 
 You build a `parallel corpus` custom model in this section.
 
-
 ## Tools Used
 
 - Watson Language Translator
 
-
 ## Requirements
 
 - [IBM Cloud Account](https://cloud.ibm.com)
-
 
 ## Creating TMX file
 
@@ -45,7 +41,7 @@ To provide a glossary or corpus of terms for training the `Language Translator` 
 
 Each term and translation pair must be enclosed in `<tu>` tags:
 
-```
+```xml
 <tu>
     <tuv xml:lang="en">
     <seg>patent</seg>
@@ -61,12 +57,11 @@ The `xml:lang` attribute in the `<tuv>` tag identifies the language in which a t
 
 The `Language Translator` service uses only the `<tu>`, `<tuv>`, and `<seg>` elements. All other elements in the example are required to make a valid TMX file, or are informational, but are not used by the service.
 
-
 ## Sampe TMX file
 
 The following is a small piece of an English to French `parallel corpus` that was downloaded from the MultiUN collection available on the OPUS open parallel corpus website. You can download a compressed version of the entire TMX file.
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <tmx version="1.4">
 <header creationdate="Tue Jan 29 12:49:40 2013"
@@ -89,7 +84,6 @@ The following is a small piece of an English to French `parallel corpus` that wa
     ...
 ```
 
-
 ## Steps
 
 To build a `parallel corpus` custom model,
@@ -98,20 +92,20 @@ To build a `parallel corpus` custom model,
 
 1. The terminal window should have been ready for making API calls. If not, execute command
 
-    ```
+    ```bash
     export apikey=<your API key>
     export url=<your url>
     ```
 
 1. Identify if a specific model, for example `en-fr`, supports customization, execute command
 
-    ```
+    ```bash
     curl --user "apikey:$apikey" "$url/v3/models?source=en&target=fr&version=2018-05-01"
     ```
 
 1. It returns the following JSON data. `"customizable" : true` shows that the model supports customization.
 
-    ```
+    ```json
     {
         "models" : [ {
             "model_id" : "en-fr",
@@ -131,19 +125,19 @@ To build a `parallel corpus` custom model,
 
 1. Optionally, you may execute the command below and retrieve all models for customization support.
 
-    ```
+    ```bash
     curl --user apikey:$apikey "$url/v3/models?version=2018-05-01"
     ```
 
-1. Create your training data. 
+1. Create your training data.
 
     For this exercise, a TMX file `en-fr-6000-ParallelCorpus.tmx` is provided in the repo.
 
-1. Train your custom model. 
+1. Train your custom model.
 
     Use the `Create model` method to train your model. In your request, specify the model ID of a customizable base model, and training data in the parallel_corpus parameters.
 
-    ```
+    ```bash
     curl -X POST --user "apikey:$apikey" --form parallel_corpus=@en-fr-6000-ParallelCorpus.tmx "$url/v3/models?version=2018-05-01&base_model_id=en-fr&name=custom-english-to-french"
     ```
 
@@ -151,7 +145,7 @@ To build a `parallel corpus` custom model,
 
 1. The command returns
 
-    ```
+    ```json
     {
         "model_id" : "43745eda-7fde-4998-a62a-26cf0e795973",
         "source" : "en",
@@ -171,7 +165,7 @@ To build a `parallel corpus` custom model,
 
 1. Record the `model_id`.
 
-    ```
+    ```bash
     export MODELID=<model_id>
     ```
 
@@ -181,13 +175,13 @@ To build a `parallel corpus` custom model,
 
     The following command gets information for the model identified by the model ID `$MODELID`.
 
-    ```
+    ```bash
     curl --user "apikey:$apikey" "$url/v3/models/$MODELID?version=2018-05-01"
     ```
 
     It returns
 
-    ```
+    ```json
     {
         "model_id" : "43745eda-7fde-4998-a62a-26cf0e795973",
         "source" : "en",
@@ -215,7 +209,7 @@ To build a `parallel corpus` custom model,
 
 1. When the model status is available, your model is ready to use with your service instance.
 
-    ```
+    ```json
     {
         "model_id" : "43745eda-7fde-4998-a62a-26cf0e795973",
         "source" : "en",
@@ -237,13 +231,13 @@ To build a `parallel corpus` custom model,
 
     The following command translates text with the custom model identified by the model ID `$MODELID`.
 
-    ```
+    ```bash
     curl -X POST --user "apikey:$apikey" --header "Content-Type: application/json" --data "{\"text\":\"Hello, Lee Zhang. Please don't park in the alley.\",\"model_id\":\"$MODELID\"}" "$url/v3/translate?version=2018-05-01"
     ```
 
 1. It returns
 
-    ```
+    ```json
     {
         "translations" : [ {
             "translation" : "Bonjour, Lee Zhang. Veuillez ne pas vous garer dans l'allée."
@@ -255,15 +249,15 @@ To build a `parallel corpus` custom model,
 
     Neither `Lee Zhang` nor `alley` were translated in the way that you defined in the TMX file `en-fr-6000-ParallelCorpus.tmx`. Use a `parallel corpus` when you want your custom model to learn from general translation patterns in your sample TMX file. What your model learns from a parallel corpus can improve translation results for input text that the model hasn't been trained on. However, the general improvements from parallel corpus customization are less predictable than the mandatory results you get from forced glossary customization.
 
-1. You can apply a `forced glossary` to a model that has been customized with a parallel corpus. 
+1. You can apply a `forced glossary` to a model that has been customized with a parallel corpus.
 
-    ```
+    ```bash
     curl -X POST --user "apikey:$apikey" --form forced_glossary=@en-fr-ForcedGlossary.tmx "$url/v3/models?version=2018-05-01&base_model_id=$MODELID&name=custom-english-to-french-2"
     ```
 
 1. The command returns
 
-    ```
+    ```json
     {
         "model_id" : "6277bffd-f884-4c5c-9825-ac41136f1b69",
         "source" : "en",
@@ -283,21 +277,21 @@ To build a `parallel corpus` custom model,
 
 1. Record the new model ID.
 
-    ```
+    ```bash
     export MODELID2=<new model ID>
     ```
 
 1. Check the status of the new custom model.
 
-    The following command gets information for the model identified by the model ID `$MODELID2`. 
+    The following command gets information for the model identified by the model ID `$MODELID2`.
 
-    ```
+    ```bash
     curl --user "apikey:$apikey" "$url/v3/models/$MODELID2?version=2018-05-01"
     ```
 
 1. When the model status is available, your model is ready to use with your service instance.
 
-    ```
+    ```json
     {
         "model_id" : "6277bffd-f884-4c5c-9825-ac41136f1b69",
         "source" : "en",
@@ -317,13 +311,13 @@ To build a `parallel corpus` custom model,
 
     To use your custom model, specify the text that you want to translate and the custom model's model ID in the Translate method. The following command translates text with the custom model identified by the model ID `MODELID2`.
 
-    ```
+    ```bash
     curl -X POST --user "apikey:$apikey" --header "Content-Type: application/json" --data "{\"text\":\"Hello, Lee Zhang. Please don't park in the alley.\",\"model_id\":\"$MODELID2\"}" "$url/v3/translate?version=2018-05-01"
     ```
 
 1. It returns
 
-    ```
+    ```json
     {
         "translations" : [ {
             "translation" : "Bonjour, Lijing Zhang. Veuillez ne pas vous garer dans l'胡同."
@@ -339,13 +333,12 @@ To build a `parallel corpus` custom model,
 
 1. Deleting a custom translation model. **Don't run the command if you plan to use the custom model again**.
 
-    To delete a custom translation model, use the Delete model method. The following command deletes the translation model with the model ID `$MODELID2` & `$MODELID`. 
+    To delete a custom translation model, use the Delete model method. The following command deletes the translation model with the model ID `$MODELID2` & `$MODELID`.
 
-    ```
+    ```bash
     curl -X DELETE --user "apikey:$apikey" "$url/v3/models/$MODELID?version=2018-05-01"
     curl -X DELETE --user "apikey:$apikey" "$url/v3/models/$MODELID2?version=2018-05-01"
     ```
-
 
 ## Related Links
 
@@ -353,7 +346,6 @@ There is lots of great information, tutorials, articles, etc on the [IBM Develop
 
 - [Getting started with Language Translator](https://cloud.ibm.com/docs/language-translator?topic=language-translator-gettingstarted)
 - [IBM Cloud API Docs - Language Translator](https://cloud.ibm.com/apidocs/language-translator)
-
 
 ## General Links
 

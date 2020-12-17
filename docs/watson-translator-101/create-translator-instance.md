@@ -1,22 +1,18 @@
 # Create Language Translator Service Instance
 
-
 ## Objective
 
 IBM Watson™ Language Translator allows you to translate text programmatically from one language into another language.
 
 You create an instance of IBM Watson™ Language Translator service in IBM Cloud.
 
-
 ## Tools Used
 
 - Watson Language Translator
 
-
 ## Requirements
 
 - [IBM Cloud Account](https://cloud.ibm.com)
-
 
 ## Steps
 
@@ -44,8 +40,7 @@ To create an instance of IBM Watson™ Language Translator service in IBM Cloud,
 
 1. Click `Create` button. This create your `Translator` insstance.
 
-
-### Setup a terminal environment connecting to `Translator` instance 
+### Setup a terminal environment connecting to `Translator` instance
 
 The rest of the workshop will use your `Translator` instance created in this section. For simplicity, you are going to connect to your `Translator` instance via `Curl` command in a terminal wiindow. To connect to your `Translator` instance, `API key` and `Endpoint URL` must be set correctly.
 
@@ -55,7 +50,7 @@ The rest of the workshop will use your `Translator` instance created in this sec
 
 1. Both `API key` and `URL` are available on the right.
 
-    ![Translator service](docs/images/translator-service.png)
+    ![Translator service](images/translator-service.png)
 
 1. Copy the `API key`.
 
@@ -63,7 +58,7 @@ The rest of the workshop will use your `Translator` instance created in this sec
 
 1. Execute command
 
-    ```
+    ```bash
     export apikey=<your API key>
     ```
 
@@ -71,19 +66,19 @@ The rest of the workshop will use your `Translator` instance created in this sec
 
 1. Execute command below in the terminal window.
 
-    ```
+    ```bash
     export url=<your url>
     ```
 
 1. To verify you are connected to an instance `Translator` service, execute the command
 
-    ```
+    ```bash
     curl --user "apikey:$apikey" "$url/v3/models?source=en&target=es&version=2018-05-01"
     ```
 
 1. It should return
 
-    ```
+    ```json
     {
         "models" : [ {
             "model_id" : "en-es",
@@ -103,14 +98,12 @@ The rest of the workshop will use your `Translator` instance created in this sec
 
 1. If the expected result were not returned, reset both `apikey` and `url` environment variable.
 
-
 ## Related Links
 
 There is lots of great information, tutorials, articles, etc on the [IBM Developer site](https://developer.ibm.com) as well as broader web. Here are a subset of good examples related to data understanding, visualization and processing:
 
 - [Getting started with Language Translator](https://cloud.ibm.com/docs/language-translator?topic=language-translator-gettingstarted)
 - [IBM Cloud API Docs - Language Translator](https://cloud.ibm.com/apidocs/language-translator)
-
 
 ## General Links
 
